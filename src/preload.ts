@@ -2,7 +2,6 @@ import {ipcRenderer} from 'electron';
 import {EMainCustomEvents, ERendererCustomEvents} from './models/custom-events-enums';
 import {ISaveDocumentEventPayload} from './models/renderer-process-events';
 import {IDocumentOpenedEventPayload, IDocumentSavedEventPayload} from './models/main-process-events';
-import {renderCustomModal} from './components/custom-modal/custom-modal';
 
 window.addEventListener('DOMContentLoaded', () => {
 	const DOMElementsMap = {
