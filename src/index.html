@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Notepad S</title>
+  </head>
+  <body>
+    <div class="title-bar">
+      <span class="title-bar__application-title">Notepad S</span>
+      <span id="document-name" class="title-bar__document-name"></span>
+      <span
+        id="document-name-star"
+        class="title-bar__document-name-start"
+      ></span>
+      <div class="title-bar__actions">
+        <button id="save-button" class="title-bar__button custom-button">
+          Save
+        </button>
+        <button id="open-button" class="title-bar__button custom-button">
+          Open
+        </button>
+        <button id="new-button" class="title-bar__button custom-button">
+          New
+        </button>
+        <button
+          id="close-button"
+          class="title-bar__button custom-button title-bar__close-button"
+        >
+          <img draggable="false" src="assets/images/close.svg" alt="close" />
+        </button>
+      </div>
+    </div>
+    <main class="main">
+      <section class="textarea">
+        <textarea id="textarea-input" class="textarea__input"></textarea>
+      </section>
+    </main>
+  </body>
+</html>
