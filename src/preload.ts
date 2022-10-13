@@ -2,6 +2,7 @@ import {ipcRenderer} from 'electron';
 import {EMainCustomEvents, ERendererCustomEvents} from './models/custom-events-enums';
 import {ISaveDocumentEventPayload} from './models/renderer-process-events';
 import {IDocumentOpenedEventPayload, IDocumentSavedEventPayload} from './models/main-process-events';
+import {renderCustomModal} from './components/custom-modal/custom-modal';
 
 window.addEventListener('DOMContentLoaded', () => {
 	const DOMElementsMap = {
@@ -34,7 +35,14 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 
 	DOMElementsMap.closeApplicationButton.addEventListener('click', () => {
-		ipcRenderer.send(ERendererCustomEvents.CLOSE_APPLICATION);
+		// if (DOMElementsMap.documentNameStar.innerText === '*') {
+		// 	renderCustomModal();
+		// }
+		ipcRenderer.send(
+			ERendererCustomEvents.CLOSE_APPLICATION,
+			{
+				inputText: DOMElementsMap.textareaInput.value,
+			} as ISaveDocumentEventPayload);
 	});
 
 	DOMElementsMap.textareaInput.addEventListener('input', () => {
@@ -45,6 +53,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	ipcRenderer.on(EMainCustomEvents.DOCUMENT_OPENED, (_, args: IDocumentOpenedEventPayload) => {
 		DOMElementsMap.textareaInput.value = args.text;
 		DOMElementsMap.documentName.innerText = args.title;
+		DOMElementsMap.documentNameStar.innerText = '';
 	});
 
 	ipcRenderer.on(EMainCustomEvents.DOCUMENT_SAVED, (_, args: IDocumentSavedEventPayload) => {
@@ -53,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	});
 
 	ipcRenderer.on(EMainCustomEvents.NEW_DOCUMENT_CREATED, () => {
-		DOMElementsMap.documentName.innerText = '';
+		DOMElementsMap.documentName.innerText = 'Untitled';
 		DOMElementsMap.documentNameStar.innerText = '';
 	});
 
