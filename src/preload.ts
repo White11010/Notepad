@@ -1,4 +1,5 @@
 import { ipcRenderer } from "electron";
+import {EMainCustomEvents} from "./typings/custom-events";
 
 window.addEventListener("DOMContentLoaded", () => {
   const DOMElementsMap = {
@@ -36,17 +37,17 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // Renderer event listeners
-  ipcRenderer.on("open-document", (_, args) => {
+  ipcRenderer.on(EMainCustomEvents.DOCUMENT_OPENED, (_, args) => {
     DOMElementsMap.textareaInput.value = args.text;
     DOMElementsMap.documentName.innerText = args.title;
   });
 
-  ipcRenderer.on("save-document", (_, args) => {
+  ipcRenderer.on(EMainCustomEvents.DOCUMENT_SAVED, (_, args) => {
     DOMElementsMap.documentName.innerText = args.title;
     DOMElementsMap.documentNameStar.innerText = "";
   });
 
-  ipcRenderer.on("new-document", () => {
+  ipcRenderer.on(EMainCustomEvents.NEW_DOCUMENT_CREATED, () => {
     DOMElementsMap.documentName.innerText = "";
     DOMElementsMap.documentNameStar.innerText = "";
   });
